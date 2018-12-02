@@ -25,12 +25,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-$session = new Session();
-
-if(!$session->isStarted()){
-    $session->start();
-}
-//$session->clear();
 class RaceController extends AbstractController
 {
     private $encoders;
@@ -62,6 +56,10 @@ class RaceController extends AbstractController
     public function index (Request $request)
     {
         $session = $request->getSession();
+        if(!$session->isStarted()){
+            $session->start();
+        }
+
         if ($session->get('race') == null) {
             $this->createRace($request);
         }
