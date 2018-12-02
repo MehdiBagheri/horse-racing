@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: RaceHorseBuilder.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -12,21 +12,25 @@ use App\Entity\Horse;
 
 class RaceHorseBuilder extends HorseBuilder
 {
-    private $horse = NULL;
+    private $horse = null;
+
     public function __construct ()
     {
         $this->horse = new Horse();
     }
 
-    public function setSpeed(float $speed){
+    public function setSpeed (float $speed)
+    {
         $this->horse->setSpeed($speed);
     }
 
-    public function setStrength(float $strength){
+    public function setStrength (float $strength)
+    {
         $this->horse->setStrength($strength);
     }
 
-    public function setEndurance(float $endurance){
+    public function setEndurance (float $endurance)
+    {
         $this->horse->setEndurance($endurance);
     }
 

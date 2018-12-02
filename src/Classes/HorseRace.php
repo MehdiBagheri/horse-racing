@@ -39,12 +39,10 @@ class HorseRace
     }
 
 
-
     public function __construct (
         int $numberOfParticipants,
         float $distance
-    )
-    {
+    ) {
         $this->numberOfParticipants = $numberOfParticipants;
         $this->distance = $distance;
         $this->setHorses();
@@ -84,22 +82,24 @@ class HorseRace
         $this->distance = $distance;
     }
 
-    private function setHorses()
+    private function setHorses ()
     {
         for ($i = 0; $i < $this->numberOfParticipants; $i++) {
             $horseBuilder = new RaceHorseBuilder();
             $horseDirector = new RaceHorseDirector($horseBuilder);
             $horseDirector->buildHorse();
             $this->horses[$i][0] = $horseDirector->getHorse();
-            $this->horses[$i][1] = ['finished'=> 0 , 'distance' => 0, 'position'=>0 , 'time'=>0];
+            $this->horses[$i][1] = ['finished' => 0, 'distance' => 0, 'position' => 0, 'time' => 0];
         }
     }
 
-    public function modifyHorses($horse){
+    public function modifyHorses ($horse)
+    {
         $this->horses = $horse;
     }
 
-    public function getHorses(){
+    public function getHorses ()
+    {
         return $this->horses;
     }
 

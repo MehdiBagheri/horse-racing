@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: Race.
- * User: Mehdi
+ * User: Mehdi Bagheri
  * Date: Nov, 2018
  */
 
@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Classes\HorseRace;
 use App\Classes\HorseRaceResult;
 use App\Classes\SimulatorHorseRace;
+use App\Repository\BestRecordRepository;
 use App\Repository\RaceRepository;
 use App\Repository\RaceResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,17 +38,19 @@ class RaceController extends AbstractController
     private $serializer;
     private $raceRepository;
     private $raceResultRepository;
+    private $bestRecordRepository;
 
-    public function __construct(
+    public function __construct (
         RaceRepository $raceRepository,
-        RaceResultRepository $raceResultRepository
-    )
-    {
+        RaceResultRepository $raceResultRepository,
+        BestRecordRepository $bestRecordRepository
+    ) {
+        $this->bestRecordRepository = $bestRecordRepository;
         $this->raceResultRepository = $raceResultRepository;
         $this->raceRepository = $raceRepository;
         $this->encoders = array(new XmlEncoder(), new JsonEncoder());
         $this->normalizers = array(new ObjectNormalizer());
-        $this->serializer =  new Serializer($this->normalizers, $this->encoders);
+        $this->serializer = new Serializer($this->normalizers, $this->encoders);
     }
 
     /**
@@ -56,54 +59,71 @@ class RaceController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index (Request $request)
     {
-        $this->createRace($request);
+        $session = $request->getSession();
+        if ($session->get('race') == null) {
+            $this->createRace($request);
+        }
+
         return $this->render("race/index.html.twig");
 
     }
 
     /**
      * @param Request $request
-     * @Route("/patternCreateNew", name="patternCreateNew")
+     * @Route("/create", name="create")
+     *
      * @return Response
+     *
+     * create race using builder pattern for create horses and factory pattern for creating races
      */
 
-    public function createRace(Request $request)
+    public function createRace (Request $request)
     {
         $horseRaceSimulator = new SimulatorHorseRace();
-        $horseRace = $horseRaceSimulator->makeHorseRace(8,1500);
+        $horseRace = $horseRaceSimulator->makeHorseRace(8, 1500);
         $session = $request->getSession();
         $session->set('race', $horseRace);
 
         $horseRace = $this->serializer->serialize($horseRace->getHorses(), 'json');
+
         return New Response($horseRace);
     }
 
     /**
      * @param Request $request
-     * @Route("/getResultPattern", name="getResultPattern")
+     * @Route("/getResult", name="getResult")
+     *
      * @return Response
+     *
+     *races result calculation and save into database at the end
      */
 
-    public function getRaceResult(Request $request){
+    public function getRaceResult (Request $request)
+    {
+
         $raceResult = new HorseRaceResult();
-        $session =  $request->getSession();
+        $session = $request->getSession();
         $currentRace = $session->get('race');
-        $race = $raceResult->getResult($currentRace);
-        if($race->getStatus() == HorseRace::FINISHED)
-        {
+
+        if ($currentRace->getStatus() == HorseRace::FINISHED) {
             $raceInfo =
-                ['numberOfParticipants' =>$race->getNumberOfParticipants(),
-                 'distance' => $race->getDistance()
-                 ];
+                [
+                    'numberOfParticipants' => $currentRace->getNumberOfParticipants(),
+                    'distance'             => $currentRace->getDistance(),
+                ];
             $raceId = $this->raceRepository->addRace($raceInfo);
 
-            $this->raceResultRepository->addResultByRaceId($race->getHorses(), $raceId);
-            return new JsonResponse(null);
+            $bestRecord = $this->raceResultRepository->addResultByRaceId($currentRace->getHorses(), $raceId);
+            $this->bestRecordRepository->setBestRecord($bestRecord);
+
+            return new JsonResponse('null');
         }
+        $race = $raceResult->getResult($currentRace);
         $session->set('race', $race);
         $result = $this->serializer->serialize($race->getHorses(), 'json');
+
         return new Response($result);
     }
 

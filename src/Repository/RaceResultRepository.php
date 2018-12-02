@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: RaceResultRepository.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -20,18 +20,29 @@ class RaceResultRepository extends ServiceEntityRepository
         parent::__construct($registry, RaceResult::class);
     }
 
-    public function addResultByRaceId($horses, $raceId)
+    public function addResultByRaceId ($horses, $raceId)
     {
-        $raceResult = new RaceResult();
+        $bestRecord = [];
+        for ($i = 0; $i < count($horses); $i++) {
+            if ($horses[$i][1]['position'] == 1) {
+                $bestRecord = [
+                    'time'      => $horses[$i][1]['time'],
+                    'speed'     => $horses[$i][0]->getSpeed(),
+                    'strength'  => $horses[$i][0]->getStrength(),
+                    'endurance' => $horses[$i][0]->getEndurance(),
+                ];
+            }
 
-        foreach ($horses as $horse){
-
+            $raceResult = new RaceResult();
             $raceResult->setRace($raceId);
-            $raceResult->setPosition($horse[1]['position']);
-            $raceResult->setTime($horse[1]['time']);
+            $raceResult->setPosition($horses[$i][1]['position']);
+            $raceResult->setTime($horses[$i][1]['time']);
             $this->getEntityManager()->persist($raceResult);
+
         }
         $this->getEntityManager()->flush();
+
+        return $bestRecord;
 
     }
 }

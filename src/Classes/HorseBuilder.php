@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: HorseBuilder.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -10,5 +10,5 @@ namespace App\Classes;
 
 Abstract class HorseBuilder
 {
-    abstract function getHorse();
+    abstract function getHorse ();
 }

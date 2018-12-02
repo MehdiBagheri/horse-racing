@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: RaceRepository.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -19,7 +19,8 @@ class RaceRepository extends ServiceEntityRepository
         parent::__construct($registry, Race::class);
     }
 
-    public function addRace(array $raceInfo){
+    public function addRace (array $raceInfo)
+    {
         $race = new Race();
 
         $race->setDistance($raceInfo['distance']);

@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: SimulatorHorseRace.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -13,11 +13,12 @@ class SimulatorHorseRace extends RaceFactory
 
     public function makeHorseRace ($numberOfParticipants, $distance)
     {
-        $race = NULL;
+        $race = null;
         $race = new HorseRace(
             $numberOfParticipants,
             $distance
         );
+
         return $race;
     }
 }

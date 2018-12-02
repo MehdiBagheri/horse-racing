@@ -35,29 +35,29 @@ class Race
      */
     private $distance;
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getParticipantNumber(): ?int
+    public function getParticipantNumber (): ?int
     {
         return $this->participantNumber;
     }
 
-    public function setParticipantNumber(int $participantNumber): self
+    public function setParticipantNumber (int $participantNumber): self
     {
         $this->participantNumber = $participantNumber;
 
         return $this;
     }
 
-    public function getDistance(): ?float
+    public function getDistance (): ?float
     {
         return $this->distance;
     }
 
-    public function setDistance(float $distance): self
+    public function setDistance (float $distance): self
     {
         $this->distance = $distance;
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * BestRecord
  *
  * @ORM\Table(name="best_record")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\BestRecordRepository")
  */
 class BestRecord
 {
@@ -49,53 +49,53 @@ class BestRecord
      */
     private $time;
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getSpeed(): ?int
+    public function getSpeed (): ?int
     {
         return $this->speed;
     }
 
-    public function setSpeed(int $speed): self
+    public function setSpeed (int $speed): self
     {
         $this->speed = $speed;
 
         return $this;
     }
 
-    public function getStrength(): ?int
+    public function getStrength (): ?int
     {
         return $this->strength;
     }
 
-    public function setStrength(int $strength): self
+    public function setStrength (int $strength): self
     {
         $this->strength = $strength;
 
         return $this;
     }
 
-    public function getEndurance(): ?int
+    public function getEndurance (): ?int
     {
         return $this->endurance;
     }
 
-    public function setEndurance(int $endurance): self
+    public function setEndurance (int $endurance): self
     {
         $this->endurance = $endurance;
 
         return $this;
     }
 
-    public function getTime(): ?int
+    public function getTime (): ?int
     {
         return $this->time;
     }
 
-    public function setTime(int $time): self
+    public function setTime (int $time): self
     {
         $this->time = $time;
 

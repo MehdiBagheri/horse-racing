@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: RaceFactory.
- * User: Mithredate
+ * User: Mehdi Bagheri
  * Date: Dec, 2018
  */
 
@@ -10,5 +10,5 @@ namespace App\Classes;
 
 Abstract class RaceFactory
 {
-    abstract public function makeHorseRace($numberOfParticipants, $distance);
+    abstract public function makeHorseRace ($numberOfParticipants, $distance);
 }

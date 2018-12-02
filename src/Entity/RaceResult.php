@@ -45,41 +45,41 @@ class RaceResult
      */
     private $race;
 
-    public function getId(): ?int
+    public function getId (): ?int
     {
         return $this->id;
     }
 
-    public function getPosition(): ?int
+    public function getPosition (): ?int
     {
         return $this->position;
     }
 
-    public function setPosition(int $position): self
+    public function setPosition (int $position): self
     {
         $this->position = $position;
 
         return $this;
     }
 
-    public function getTime(): ?int
+    public function getTime (): ?int
     {
         return $this->time;
     }
 
-    public function setTime(int $time): self
+    public function setTime (int $time): self
     {
         $this->time = $time;
 
         return $this;
     }
 
-    public function getRace(): ?Race
+    public function getRace (): ?Race
     {
         return $this->race;
     }
 
-    public function setRace(?Race $race): self
+    public function setRace (?Race $race): self
     {
         $this->race = $race;
 

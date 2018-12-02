@@ -1,75 +1,75 @@
-{%  extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block title %}Horse Racing{% endblock %}
 {% block stylesheets %}
     {{ encore_entry_link_tags('race') }}
 {% endblock %}
  {% block body %}
-         <label>number of participants 8 </label>
-         <input type="submit" value="create race" id="createRace">
+     <label>number of participants 8 </label>
+     <input type="submit" value="new race" id="createRace">
      <table class="table" id="raceTable">
 
          <tr id="tableHeader">
-             <th> </th>
+             <th></th>
              {% if app.session.get('race') != null %}
-             {% set i = 0 %}
-             {% for horse in app.session.get('race').horses %}
-                 {% set i = i+1 %}
-             <th>horse_{{ i }}</th>
-             {% endfor %}
+                 {% set i = 0 %}
+                 {% for horse in app.session.get('race').horses %}
+                     {% set i = i+1 %}
+                     <th>horse_{{ i }}</th>
+                 {% endfor %}
              {% endif %}
          </tr>
          <tr id="horseSpeed">
              {% if app.session.get('race') != null %}
-             <td>speed</td>
-             {% for horse in app.session.get('race').horses %}
-                 <td>{{ horse[0].speed }}</td>
-             {% endfor %}
+                 <td>speed</td>
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[0].speed }}</td>
+                 {% endfor %}
              {% endif %}
 
 
          </tr>
          <tr id="horseStrength">
              {% if app.session.get('race') != null %}
-             <td>strength</td>
+                 <td>strength</td>
 
-             {% for horse in app.session.get('race').horses%}
-                 <td>{{ horse[0].strength }}</td>
-             {% endfor %}
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[0].strength }}</td>
+                 {% endfor %}
              {% endif %}
 
          </tr>
          <tr id="horseEndurance">
              {% if app.session.get('race') != null %}
-             <td>endurance</td>
-             {% for horse in app.session.get('race').horses %}
-                 <td>{{ horse[0].endurance }}</td>
-             {% endfor %}
+                 <td>endurance</td>
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[0].endurance }}</td>
+                 {% endfor %}
              {% endif %}
 
          </tr>
          <tr id="horseDistance">
              {% if app.session.get('race') != null %}
-             <td>distance</td>
-             {% for horse in app.session.get('race').horses %}
-                 <td>{{ horse[1].distance }}</td>
-             {% endfor %}
+                 <td>distance</td>
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[1].distance }}</td>
+                 {% endfor %}
              {% endif %}
 
          </tr>
          <tr id="horsePosition">
              {% if app.session.get('race') != null %}
-             <td>position</td>
-             {% for horse in app.session.get('race').horses %}
-                 <td>{{ horse[1].position }}</td>
-             {% endfor %}
+                 <td>position</td>
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[1].position }}</td>
+                 {% endfor %}
              {% endif %}
          </tr>
          <tr id="horseTime">
              {% if app.session.get('race') != null %}
-             <td>timer</td>
-             {% for horse in app.session.get('race').horses %}
-                 <td>{{ horse[1].time }}</td>
-             {% endfor %}
+                 <td>timer</td>
+                 {% for horse in app.session.get('race').horses %}
+                     <td>{{ horse[1].time }}</td>
+                 {% endfor %}
              {% endif %}
          </tr>
 
