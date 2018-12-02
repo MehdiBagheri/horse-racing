@@ -10,11 +10,7 @@ namespace App\Controller;
 
 use App\Classes\HorseRace;
 use App\Classes\HorseRaceResult;
-use App\Classes\RaceHorseBuilder;
-use App\Classes\RaceHorseDirector;
 use App\Classes\SimulatorHorseRace;
-use App\Entity\Horse;
-use App\Entity\RaceResult;
 use App\Repository\RaceRepository;
 use App\Repository\RaceResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,9 +26,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 $session = new Session();
 
-//if(!$session->isStarted()){
-//    $session->start();
-//}
+if(!$session->isStarted()){
+    $session->start();
+}
 //$session->clear();
 class RaceController extends AbstractController
 {
